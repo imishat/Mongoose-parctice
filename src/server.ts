@@ -1,27 +1,20 @@
-const express = require('express')
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import app from "./app";
 
-const app = express()
-const port = 5000
+const port: number = 5000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+//database connection
+async function bootstrap() {
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/practice-mongoose");
+    console.log(`🛢 Database connection successful`);
 
-// database connect
-async function main() {
-  try{
-    await mongoose.connect('mongodb://127.0.0.1:27017/test');
-  
-    // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-    console.log('database connect done')
+    app.listen(port, () => {
+      console.log(`Server is  listening on port ${port}`);
+    });
+  } catch (err) {
+    console.log(`Failed to connect database`, err);
   }
-catch (err){
-    console.log(err)
 }
-  }
-  main()
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+bootstrap();
