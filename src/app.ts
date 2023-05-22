@@ -1,6 +1,7 @@
-import  express, { Application, NextFunction,Response,Request, application } from "express";
+import  express, { Application } from "express";
 
 import cors from 'cors';
+
 
 
 
@@ -11,6 +12,9 @@ app.use(cors())
 // data perse
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
+import userRouter from './APP/moduls/user/user.rout'
+app.use('/api/user/v1',userRouter)
  //inserting test data in mongodb
 
   /*
